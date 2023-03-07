@@ -34,12 +34,3 @@ func variableShorter() {
 	a = 5
 	fmt.Println(a, b, c)
 }
-
-func main() {
-	fmt.Println("hello world")
-	variableZeroValue()
-	variableInitialValue()
-	variableTypeDeduction()
-	variableShorter()
-	fmt.Println(aaa, kkk)
-}
