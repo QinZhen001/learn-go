@@ -53,5 +53,14 @@ func enums() {
 		js
 		py
 	)
+
+	const (
+		b = 1 << (10 * iota)
+		kb
+		mb
+		gb
+	)
+
 	fmt.Println(cpp, java, js, py)
+	fmt.Println(b, kb, mb, gb)
 }
