@@ -18,8 +18,23 @@ func main() {
 
 	// var3
 	readFile()
-	r := eval(5, 3, "*")
-	fmt.Println(r)
+	v1, err1 := eval(5, 3, "*")
+	fmt.Println(v1, err1)
+	v2, err2 := eval(5, 3, "k")
+	fmt.Println(v2, err2)
+	if err2 != nil {
+		fmt.Println("eval error")
+	}
 	g := grade(88)
 	fmt.Println(g)
+
+	// loop
+	fmt.Println(convertToBin(13))
+	printFile1("../assets/abc.txt")
+
+	// func
+	q, _ := div(10, 3) // _ 代表不想要这个值
+	fmt.Println(q)
+	apply(add, 1, 2)
+	fmt.Println(sum(1, 2, 4))
 }

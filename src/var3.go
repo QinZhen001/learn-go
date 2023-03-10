@@ -27,28 +27,7 @@ func readFile() {
 	// fmt.Printf("%s\n", contents)
 }
 
-// switch 会自动break
-func eval(a, b int, op string) int {
-	fmt.Println("======== eval =============")
-	var result int
-	switch op {
-	case "+":
-		result = a + b
-	case "-":
-		result = a - b
-	case "*":
-		result = a * b
-	case "/":
-		result = a / b
-	default:
-		panic("unsupported operator: " + op)
-
-	}
-
-	return result
-}
-
-// switch 后面可以不跟变量
+// switch 后面可以不跟表达式
 func grade(score int) string {
 	fmt.Println("======== grade =============")
 	g := ""

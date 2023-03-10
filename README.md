@@ -1,7 +1,7 @@
 # learn-go
 :art: learn go
 
-
+没有 while 用 for 代替
 
 ## Printf 和 Sprintf
 
