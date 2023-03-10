@@ -37,4 +37,13 @@ func main() {
 	fmt.Println(q)
 	apply(add, 1, 2)
 	fmt.Println(sum(1, 2, 4))
+
+	// pointer
+	a, b := 3, 4
+	swap(&a, &b)
+	fmt.Println(a, b)
+
+	c, d := 3, 4
+	c, d = swap1(c, d)
+	fmt.Println(c, d)
 }
