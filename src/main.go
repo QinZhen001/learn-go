@@ -53,4 +53,7 @@ func main() {
 	// slice
 	slice()
 	create_slice()
+
+	// map
+	create_map()
 }
