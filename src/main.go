@@ -46,4 +46,11 @@ func main() {
 	c, d := 3, 4
 	c, d = swap1(c, d)
 	fmt.Println(c, d)
+
+	// arr
+	test_arr1()
+
+	// slice
+	slice()
+	create_slice()
 }
