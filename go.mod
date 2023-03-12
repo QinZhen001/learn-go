@@ -1,3 +1,3 @@
-module puppy
+module learngo
 
 go 1.20

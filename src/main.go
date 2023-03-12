@@ -56,4 +56,8 @@ func main() {
 
 	// map
 	create_map()
+
+	// string
+	create_string()
+
 }

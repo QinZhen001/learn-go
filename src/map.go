@@ -2,6 +2,8 @@ package main
 
 import "fmt"
 
+// map 使用哈希表
+// 除了slice map function 所有内建类型都可以作为key  （Struct类型不包括上述字段也可以作为key）
 func create_map() {
 	fmt.Println("============ create_map ===============")
 	// key in map 无序的
