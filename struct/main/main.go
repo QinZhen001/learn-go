@@ -5,7 +5,7 @@ package main
 
 import (
 	"fmt"
-	"learngo/tree"
+	"learngo/struct/tree"
 )
 
 func main() {

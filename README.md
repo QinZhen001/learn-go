@@ -17,3 +17,7 @@ Sprintf：格式化并返回一个字符串而不带任何输出。
    s := fmt.Sprintf("a %s", "string") fmt.Printf(s)
 ```
 
+
+## 下载包
+go get
+gopm来获取无法下载的包
