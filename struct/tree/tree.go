@@ -1,4 +1,4 @@
-package tree
+package main
 
 import (
 	"fmt"
@@ -46,10 +46,52 @@ func (node *TreeNode) Traverse() {
 	node.Right.Traverse()
 }
 
+func (node *TreeNode) TraverseFunc(f func(*TreeNode)) {
+	if node == nil {
+		return
+	}
+	node.Left.TraverseFunc(f)
+	f(node)
+	node.Right.TraverseFunc(f)
+}
+
 // go 没有构造函数
 // 可以自定义工厂函数
 func CreateNode(value int) *TreeNode {
 	// 局部变量也可以返回给外部用
 	// go 不需要知道结构创建在堆还是栈上
 	return &TreeNode{Value: value}
+}
+
+func main() {
+	fmt.Println("============= create_struct ===========")
+	var root TreeNode
+	fmt.Println(root)
+
+	root = TreeNode{Value: 3}
+	root.Left = &TreeNode{}
+	root.Right = &TreeNode{Value: 5, Left: nil, Right: nil}
+	root.Right.Left = new(TreeNode)
+	root.Right.Right = CreateNode(100)
+	fmt.Println(root)
+
+	nodes := []TreeNode{
+		{Value: 3},
+		{},
+		{Value: 6, Left: nil, Right: nil},
+	}
+	fmt.Println(nodes)
+
+	root.Right.Left.SetValue(99)
+	root.Right.Left.Print()
+	fmt.Println()
+	fmt.Println("=========== Traverse ===================")
+	root.Traverse()
+	fmt.Println()
+	fmt.Println("=========== TraverseFunc ===============")
+	count := 0
+	root.TraverseFunc(func(node *TreeNode) {
+		count++
+	})
+	fmt.Println("count:", count)
 }
