@@ -9,14 +9,33 @@ import (
 
 type appHandler func(writer http.ResponseWriter, request *http.Request) error
 
+type userError interface {
+	error
+	Message() string
+}
+
 func errWrapper(handler appHandler) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		defer func() {
+			if r := recover(); r != nil {
+				log.Printf("Panic: %v", r)
+				http.Error(w,
+					http.StatusText(http.StatusInternalServerError),
+					http.StatusInternalServerError)
+			}
+		}()
+
 		err := handler(w, r)
 		if err != nil {
-			log.Printf("Error occurred "+
-				"handling request: %s",
-				err.Error())
+			// user error
+			if userErr, ok := err.(userError); ok {
+				http.Error(w,
+					userErr.Message(),
+					http.StatusBadRequest)
+				return
+			}
 
+			// system error
 			code := http.StatusOK
 			switch {
 			case os.IsNotExist(err):
