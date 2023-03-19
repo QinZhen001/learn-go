@@ -20,16 +20,28 @@ Sprintf：格式化并返回一个字符串而不带任何输出。
 ## GO111MODULE
 [GO111MODULE 及 Go 模块](https://zhuanlan.zhihu.com/p/417246469)
 
-
+## GOPATH 和 GOROOT
+GOROOT：GOROOT就是Go的安装目录，（类似于java的JDK）
+GOPATH：GOPATH是我们的工作空间,保存go项目代码和第三方依赖包
 
 ## 环境变量
 export GOPATH=/Users/qinzhen/go
-export PATH=$GOPATH/bin
+export PATH=$GOPATH/bin:/usr/local/go/bin
+注意：go要多设置两个PATH
+
+最终的PATH通过: 一起串联起来
+export PATH=$PNPM_HOME:$PATH:/Users/qinzhen/go/bin:/usr/local/go/bin
+
+查看环境变量：
+echo $PATH
 
 
 ## 下载包
 go install这个命令建议安装那些有主文件(main.go),下载下来是作为一个xxx.exe存在于bin目录下的
 go get一般用来下载我们项目中调用某个库时使用的命令。
+
+go get： 下载包 & 更新go.mod，不安装二进制
+go install ：已下载的包，安装二进制
 
 go get
 gopm来获取无法下载的包
@@ -59,4 +71,5 @@ web  (以svg形式查看)
 go doc 
 
 将本地所有项目包括系统api生成文档：
+(在项目根路径执行)
 godoc -http :6060
