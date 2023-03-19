@@ -27,6 +27,7 @@ func Fibonacci() func() int {
 }
 
 func writeFile(filename string) {
+	fmt.Println("========= writeFile ============")
 	file, err := os.Create(filename)
 	if err != nil {
 		panic(err)
@@ -40,7 +41,27 @@ func writeFile(filename string) {
 	}
 }
 
+// create err
+func writeFileErr(filename string) {
+	fmt.Println("========= writeFileErr ============")
+	file, err := os.OpenFile(filename, os.O_EXCL|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		if pathError, ok := err.(*os.PathError); !ok {
+			panic(err)
+		} else {
+			fmt.Println("========= pathError ============")
+			fmt.Printf("%s, %s, %s\n",
+				pathError.Op,
+				pathError.Path,
+				pathError.Err)
+		}
+	}
+	defer file.Close()
+}
+
 func main() {
 	tryDefer()
-	writeFile("./fib.txt")
+	filename := "./fib.txt"
+	writeFile(filename)
+	writeFileErr(filename)
 }
