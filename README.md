@@ -95,3 +95,14 @@ go tool pprof http://localhost:8888/debug/profile
 ## doc 
 查看文档
 godoc -http :8888
+
+
+## io.Reader,io.ReadCloser和io.ReadSeeker
+[https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15](https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15)
+
+
+
+# 补充
+
+## don't close response.Body?
+[https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body](https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body)
