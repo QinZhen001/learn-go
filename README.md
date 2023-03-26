@@ -85,3 +85,13 @@ go run -race xxx.go
 
 ## build
 变成一个可执行文件，将始终打印出Hello World。如果我们想让程序再次运行，我们不需要再次编译程序，我们只需要运行可执行文件。
+
+
+## tool1
+pprof 分析性能
+go tool pprof http://localhost:8888/debug/profile
+
+
+## doc 
+查看文档
+godoc -http :8888
