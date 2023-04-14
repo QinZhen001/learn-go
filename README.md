@@ -101,6 +101,34 @@ godoc -http :8888
 [https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15](https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15)
 
 
+## Struct 和 Interface
+Interface与struct类似，但只包含一些抽象方法。 在Go中，Interface定义了通用行为的抽象。
+
+```tsx
+//declare a rectangle struct
+type rectangle struct {
+    length int
+    width  int
+}
+
+//declare an interface with area() as a member
+type shape interface {
+    area() int
+}
+
+//declare a method area()
+//the rectangle struct implements area() method in shape interface
+func (r rectangle) area() int {
+    return r.length * r.width
+}
+
+//declare a method with type shape as a parameter
+func info(s shape) {
+    fmt.Println("the area: ", s.area())
+}
+
+```
+
 
 # 补充
 
