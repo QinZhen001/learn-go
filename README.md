@@ -131,6 +131,10 @@ func info(s shape) {
 
 
 # 补充
+[https://www.cnblogs.com/liyutian/p/10050320.html](https://www.cnblogs.com/liyutian/p/10050320.html)
+表达式 new(Type) 和 &Type{} 是等价的。
+
+new 关键字时 t := new(T)，变量 t 则是一个指向 T 的指针
 
 ## don't close response.Body?
 [https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body](https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body)
