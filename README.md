@@ -97,7 +97,34 @@ go tool pprof http://localhost:8888/debug/profile
 godoc -http :8888
 
 
+
+## formatting
+
+[https://gobyexample.com/string-formatting](https://gobyexample.com/string-formatting)
+
+
+
+### %v
+
+```
+%v	the value in a default format
+	when printing structs, the plus flag (%+v) adds field names
+	
+// 	%+v  打印结构体的时候，会把里面字段名也打印出来
+```
+
+
+
+### %s
+
+For basic string printing use `%s`.
+
+可以用来打印 byte[] 
+
+
+
 ## io.Reader,io.ReadCloser和io.ReadSeeker
+
 [https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15](https://github.com/wuyongxiu/wuyongxiu.github.io/issues/15)
 
 
@@ -136,5 +163,138 @@ func info(s shape) {
 
 new 关键字时 t := new(T)，变量 t 则是一个指向 T 的指针
 
+
+
 ## don't close response.Body?
+
 [https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body](https://stackoverflow.com/questions/33238518/what-could-happen-if-i-dont-close-response-body)
+
+
+
+
+
+## string和[]byte
+
+[https://zboya.github.io/post/golang_byte_slice_and_string/](https://zboya.github.io/post/golang_byte_slice_and_string/)
+
+
+
+string:
+
+```go
+type stringStruct struct {
+    str unsafe.Pointer
+    len int
+}
+```
+
+简单的来说字符串是一系列8位字节的集合，通常但不一定代表UTF-8编码的文本。字符串可以为空，但不能为nil。而且字符串的值是不能改变的。
+
+[]byte:
+
+```go
+type slice struct {
+	array unsafe.Pointer
+	len   int
+	cap   int
+}
+```
+
+array是数组的指针，len表示长度，cap表示容量。除了cap，其他看起来和string的结构很像。
+
+
+
+标准转换
+
+```go
+// string to []byte
+s1 := "hello"
+b := []byte(s1)
+
+// []byte to string
+s2 := string(b)
+```
+
+
+
+### []byte转int
+
+```go
+var b = []byte{49,49} 
+strconv.Atoi(string(b))
+```
+
+
+
+
+
+
+
+## dereference the pointer
+
+对指针解引用
+
+
+
+
+
+# docker
+
+
+
+docker run -it alpine sh
+
+
+
+
+
+docker run -d -p 80:80 nginx    
+
+-d   后台一直运行 daemon
+
+ -p 映射到物理机器的80端口
+
+
+
+
+
+docker ps 查看进程
+
+
+
+
+
+docker kill 973322dc1872
+
+973322dc1872 => CONTAINER ID
+
+
+
+## Daemon
+
+Docker Daemon是**Docker架构中运行在后台的守护进程**，大致可以分为Docker Server、Engine和Job三部分。 Docker Daemon可以认为是通过Docker Server模块接受Docker Client的请求，并在Engine中处理请求，然后根据请求类型，创建出指定的Job并运行
+
+
+
+# shell 编程
+
+[https://wangdoc.com/bash/intro](https://wangdoc.com/bash/intro)
+
+
+
+# elasticsearch
+
+
+
+```tsx
+ elastic.NewClient(
+    // Must turn off sniff in docker
+    // 不会自动转换地址
+    elastic.SetSniff(false))
+```
+
+
+
+## Sniffing
+
+[https://juejin.cn/post/6959746724995072031](https://juejin.cn/post/6959746724995072031)
