@@ -2,24 +2,14 @@ package persist
 
 import (
 	"context"
+	"errors"
+	"learngo/crawler/engine"
 	"log"
 
 	"github.com/olivere/elastic"
 )
 
-func ItemSaver() chan interface{} {
-	out := make(chan interface{})
-	go func() {
-		for {
-			item := <-out
-			log.Printf("Got item %+v", item)
-			save(item)
-		}
-	}()
-	return out
-}
-
-func save(item interface{}) (id string, err error) {
+func ItemSaver(index string) (chan engine.Item, error) {
 	// save in elasticsearch
 	// use http.Post()
 	// or use elasticsearch client
@@ -27,16 +17,41 @@ func save(item interface{}) (id string, err error) {
 		// Must turn off sniff in docker
 		// 不会自动转换地址
 		elastic.SetSniff(false))
-
+	out := make(chan engine.Item)
 	if err != nil {
-		return "", err
+		return nil, err
+	}
+	go func() {
+		for {
+			item := <-out
+			err := save(client, index, item)
+			if err != nil {
+				log.Printf("Item %v save error: %v", item, err)
+				continue
+			}
+		}
+	}()
+	return out, nil
+}
+
+func save(client *elastic.Client, index string, item engine.Item) (err error) {
+	if item.Type == "" {
+		return errors.New("Must supply Type")
 	}
 
-	resp, err := client.Index().Index("dating_profile").Type("zhenai").BodyJson(item).Do(context.Background())
+	indexService := client.Index().
+		Index(index).
+		Type(item.Type).BodyJson(item)
 
-	if err != nil {
-		return "", err
+	if item.Id != "" {
+		indexService.Id(item.Id)
 	}
 
-	return resp.Id, nil
+	indexService.Do(context.Background())
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

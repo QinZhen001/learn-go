@@ -1,8 +1,10 @@
 package parser
 
 import (
+	"fmt"
 	"learngo/crawler/engine"
 	"learngo/crawler/model"
+	"log"
 	"regexp"
 	"strconv"
 )
@@ -21,9 +23,12 @@ var houseRe = regexp.MustCompile(`<td><span class="label">住房条件：</span>
 var carRe = regexp.MustCompile(`<td><span class="label">是否购车：</span><span field="">([^<]+)</span></td>`)
 
 // var guessRe = regexp.MustCompile(`<a class="exp-user-name"[^>]*href="(http://album.zhenai.com/u/[\d]+)">([^<]+)</a>`)
-// var idUrlRe = regexp.MustCompile(`http://album.zhenai.com/u/([\d]+)`)
+var idUrlRe = regexp.MustCompile(`http://album.zhenai.com/u/([\d]+)`)
 
-func ParseProfile(contents []byte, name string) engine.ParseResult {
+func ParseProfile(contents []byte, url string, name string) engine.ParseResult {
+
+	fmt.Printf("ParseProfile: %s\n", contents)
+
 	profile := model.Profile{}
 	profile.Name = name
 
@@ -44,8 +49,17 @@ func ParseProfile(contents []byte, name string) engine.ParseResult {
 	profile.House = extractString(contents, houseRe)
 	profile.Car = extractString(contents, carRe)
 
+	log.Printf("profile %+v", profile)
+
 	result := engine.ParseResult{
-		Items: []interface{}{profile},
+		Items: []engine.Item{
+			{
+				Url:     url,
+				Type:    "zhenai",
+				Id:      extractString([]byte(url), idUrlRe),
+				Payload: profile,
+			},
+		},
 	}
 
 	return result
@@ -58,4 +72,10 @@ func extractString(content []byte, re *regexp.Regexp) string {
 		return string(matches[1])
 	}
 	return ""
+}
+
+func profileParser(name string, url string) engine.ParserFunc {
+	return func(c []byte) engine.ParseResult {
+		return ParseProfile(c, url, name)
+	}
 }
