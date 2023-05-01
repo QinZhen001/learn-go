@@ -7,7 +7,7 @@ import (
 	"learngo/crawler/model"
 	"testing"
 
-	"github.com/olivere/elastic/v6"
+	"github.com/olivere/elastic"
 )
 
 func TestSave(t *testing.T) {
@@ -32,13 +32,16 @@ func TestSave(t *testing.T) {
 		},
 	}
 
-	err := save(expect)
+	const index = "dating_test"
+	// TODO:here use docker go client
+	client, err := elastic.NewClient(
+		elastic.SetSniff(false))
+
 	if err != nil {
 		panic(err)
 	}
 
-	client, err := elastic.NewClient(
-		elastic.SetSniff(false))
+	err = save(client, index, expect)
 
 	if err != nil {
 		panic(err)

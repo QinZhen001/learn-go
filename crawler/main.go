@@ -18,6 +18,7 @@ func main() {
 		// Scheduler: new(scheduler.SimpleScheduler),
 		ItemChan: itemChan,
 	}
+
 	e.Run(engine.Request{
 		Url:        "http://www.zhenai.com/zhenghun",
 		ParserFunc: parser.ParseCityList,
