@@ -1,9 +1,12 @@
 package controller
 
 import (
+	"context"
+	"learngo/crawler/engine"
 	"learngo/crawler/frontend/model"
 	"learngo/crawler/frontend/view"
 	"net/http"
+	"reflect"
 	"strconv"
 	"strings"
 
@@ -24,14 +27,35 @@ func (h SearchResultHandler) ServeHTTP(w http.ResponseWriter, req *http.Request)
 	}
 
 	// fmt.Fprintf(w, "q=%s, from=%d", q, form)
-	var page model.SearchResult
-	page = h.getSearchResult(q, form)
-	err = h.view.Render(w, page)
+	page, err := h.getSearchResult(q, form)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
+	err = h.view.Render(w, page)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+}
 
+func (h SearchResultHandler) getSearchResult(q string, from int) (model.SearchResult, error) {
+	var result model.SearchResult
+
+	resp, err := h.client.
+		Search("dating_profile").
+		Query(elastic.NewQueryStringQuery(q)).
+		From(from).
+		Do(context.Background())
+
+	if err != nil {
+		return result, err
+	}
+
+	result.Hits = resp.TotalHits()
+	result.Start = from
+	result.Items = resp.Each(reflect.TypeOf(engine.Item{}))
+
+	return result, nil
 }
 
 func CreateSearchResultHandler(template string) SearchResultHandler {
