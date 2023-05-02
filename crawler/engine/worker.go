@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// 分布式解决限流问题
 func worker(r Request) (ParseResult, error) {
 	log.Printf("Fetching %s", r.Url)
 	body, error := fetcher.Fetch(r.Url)
