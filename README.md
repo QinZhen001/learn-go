@@ -98,6 +98,20 @@ godoc -http :8888
 
 
 
+
+
+## log 
+
+
+
+### Fatal
+
+[https://stackoverflow.com/questions/33885235/should-a-go-package-ever-use-log-fatal-and-when](https://stackoverflow.com/questions/33885235/should-a-go-package-ever-use-log-fatal-and-when)
+
+
+
+
+
 ## formatting
 
 [https://gobyexample.com/string-formatting](https://gobyexample.com/string-formatting)
@@ -120,6 +134,14 @@ godoc -http :8888
 For basic string printing use `%s`.
 
 可以用来打印 byte[] 
+
+
+
+## error
+
+[https://www.cnblogs.com/qcrao-2018/p/11538387.html](https://www.cnblogs.com/qcrao-2018/p/11538387.html)
+
+
 
 
 

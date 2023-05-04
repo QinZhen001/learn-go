@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"learngo/interface/mock"
 	"learngo/interface/real"
+	"learngo/interface/transform"
 )
 
 var url = "https://www.baidu.com"
@@ -81,4 +82,8 @@ func main() {
 	fmt.Println(q.Pop())
 	fmt.Println("========== get and post ==================")
 	fmt.Println(session(r1))
+	fmt.Println("========== transform ==================")
+	transform.Interface2String("jack")
+	transform.Interface2String(11)
+	transform.Interface2String(11.2345)
 }
