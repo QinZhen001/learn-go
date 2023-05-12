@@ -24,16 +24,42 @@ Sprintf：格式化并返回一个字符串而不带任何输出。
 GOROOT：GOROOT就是Go的安装目录，（类似于java的JDK）
 GOPATH：GOPATH是我们的工作空间,保存go项目代码和第三方依赖包
 
+
+
 ## 环境变量
+
+[https://www.uedbox.com/post/67653/](https://www.uedbox.com/post/67653/)
+
+在~/.profile 或者 ~/.zshrc 中设置
+
+
+
+```
 export GOPATH=/Users/qinzhen/go
 export PATH=$GOPATH/bin:/usr/local/go/bin
+```
+
 注意：go要多设置两个PATH
 
 最终的PATH通过: 一起串联起来
-export PATH=$PNPM_HOME:$PATH:/Users/qinzhen/go/bin:/usr/local/go/bin
+
+```
+export PATH=PNPMHOME:PNPM_HOME:PATH:/Users/qinzhen/go/bin:/usr/local/go/bin
+```
+
+```
+// 设置代理
+export GOPROXY=https://goproxy.io,direct
+```
+
+
 
 查看环境变量：
 echo $PATH
+
+
+
+
 
 
 ## 下载包
@@ -95,6 +121,16 @@ go tool pprof http://localhost:8888/debug/profile
 ## doc 
 查看文档
 godoc -http :8888
+
+
+
+## env
+
+查看环境变量
+
+```go
+go env
+```
 
 
 
