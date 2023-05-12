@@ -3,7 +3,7 @@ package main
 import (
 	"net/http"
 
-	"github.com/gin-gonif/gin"
+	"github.com/gin-gonic/gin"
 )
 
 // 依赖管理
