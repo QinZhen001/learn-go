@@ -102,6 +102,16 @@ godoc -http :6060
 
 
 
+## get
+
+```go
+got get -u 依赖包
+```
+
+升级依赖包
+
+
+
 ## run
 go run命令会编译源码，并且直接执行源码的 main() 函数，不会在当前目录留下可执行文件。
 
@@ -131,6 +141,24 @@ godoc -http :8888
 ```go
 go env
 ```
+
+
+
+## mod
+
+```go
+// 清除mod中无用的依赖
+go mod tidy
+```
+
+
+
+```go
+// 初始化模块 初始化项目mod形式管理
+go mod init 名称
+```
+
+
 
 
 
