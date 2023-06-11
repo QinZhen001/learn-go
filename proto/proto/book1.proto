@@ -1,0 +1,19 @@
+syntax="proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+service Study {
+  rpc Study(BookRequest) returns (BookResponse) {}
+}
+
+message BookRequest {
+  string name = 1;
+}
+
+message BookResponse {
+  string msg = 1;
+  string author = 2;
+  string isbn = 3;
+}

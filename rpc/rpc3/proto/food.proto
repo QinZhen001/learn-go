@@ -1,0 +1,19 @@
+syntax="proto3";
+
+option go_package = "/pb";
+
+service FoodService{
+  // 服务端流模式
+  rpc SayName(FoodStreamRequest) returns (stream FoodStreamResponse);
+  // 客户端流模式
+  rpc PostName(stream FoodStreamRequest) returns (FoodStreamResponse);
+  // 双向流模式
+  rpc FullName(stream FoodStreamRequest) returns (stream FoodStreamResponse);  
+}
+
+message FoodStreamRequest{
+  string name=1;
+}
+message FoodStreamResponse{
+  string msg=1;
+}

@@ -29,3 +29,22 @@ type User struct {
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
+
+type Employer struct {
+	gorm.Model
+	Name        string
+	CompanyID   int
+	Company     Company
+	CreditCards []CreditCard
+}
+
+type Company struct {
+	gorm.Model
+	Name string
+}
+
+type CreditCard struct {
+	gorm.Model
+	Number     string
+	EmployerId uint
+}
