@@ -1,1 +1,0 @@
-http://localhost:8888/list/texts/index2.txt
