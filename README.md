@@ -57,5 +57,55 @@ go中的goroutins并不是同时在运行。事实上，如果没有在代码中
 
 
 
-# qit
+# sql.NullString and *string
+
+[https://stackoverflow.com/questions/40092155/difference-between-string-and-sql-nullstring](https://stackoverflow.com/questions/40092155/difference-between-string-and-sql-nullstring)
+
+```tsx
+type NullString struct {
+    String string
+    Valid  bool // Valid is true if String is not NULL
+}
+```
+
+As you can see, `sql.NullString` is a way to represent null string coming from SQL (which correspond to "NULL"). On the other hand, a nil `*string` is a pointer to a string which is nil, so the two are different.
+
+
+
+There's no effective difference. We thought people might want to use NullString because it is so common and perhaps expresses the intent more clearly than *string. But either will work
+
+使用 sql.NullString 更清晰
+
+
+
+# Gorm Associations
+
+Gorm Associations 是 Gorm 框架中用来定义和管理数据库表之间关系的一种功能。
+
+使用 Gorm Associations，可以简化数据库表之间的关联操作，比如定义一对一关系、一对多关系、多对多关系等。通过定义这些关系，可以方便地进行数据库查询和操作。
+
+应用 Gorm Associations 的主要优点包括：
+
+1. 简化代码：使用 Gorm Associations 可以简化关联关系的定义和查询操作，减少冗余代码。
+2. 方便的查询：通过定义关联关系，可以方便地进行复杂的查询操作，包括跨表查询、嵌套查询等。
+3. 数据库一致性：使用 Gorm Associations 可以确保数据库中的关联关系保持一致性，避免了手动管理关联关系带来的问题。
+4. 代码可读性：通过使用 Gorm Associations，可以更清晰地表达实体之间的关系，提高代码可读性和可维护性。
+
+总之，Gorm Associations 提供了一种方便、简化和规范的方式来管理数据库表之间的关系，提高了开发效率和代码质量。
+
+
+
+
+
+# 其他
+
+
+
+## Mysql 无法启动
+
+[Mac 下 Mysql 无法启动](https://juejin.cn/post/6844904088098832398)
+
+
+
+
 
