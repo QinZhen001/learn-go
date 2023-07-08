@@ -101,9 +101,29 @@ Gorm Associations 是 Gorm 框架中用来定义和管理数据库表之间关�
 
 
 
+## protoc 使用
+
+protoc go-grpc_out 是一个 protoc 的插件，用于生成 Go 的 gRPC 代码。以下是它的使用方法：
+
+1. 确保已经安装了 protoc 编译器和 Go 的 protoc-gen-go 插件。
+2. 定义一个 .proto 文件，其中包含了 gRPC 服务的接口定义和消息定义。
+3. 使用以下命令生成 Go 的 gRPC 代码：
+
+```bash
+protoc book.proto --go_out=. --go-grpc_out=.
+```
+
+`--go_out=.` 表示生成的 Go 代码将保存在当前目录下，`--go-grpc_out=.` 表示生成的 gRPC 代码同样保存在当前目录下
+
+
+
 ## Mysql 无法启动
 
 [Mac 下 Mysql 无法启动](https://juejin.cn/post/6844904088098832398)
+
+```bash
+sudo /usr/local/mysql/support-files/mysql.server start
+```
 
 
 
