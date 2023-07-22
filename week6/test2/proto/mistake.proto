@@ -1,0 +1,16 @@
+syntax="proto3";
+
+option go_package="./pb;pb";
+
+service MistakeService{
+  rpc MakeMistake(MistakeRequest) returns (MistakeResponse);
+}
+
+message MistakeRequest{
+  string title=2;
+  string subTitle=1;
+
+}
+message MistakeResponse{
+
+}

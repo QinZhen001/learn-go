@@ -1,0 +1,23 @@
+syntax="proto3";
+
+option go_package = "/pb";
+
+service DefaultService{
+  rpc GetDefault(DefaultRequest) returns (DefaultResponse);
+}
+
+message DefaultRequest {
+  string name=1;
+  double price=2;
+  float price2=3;
+  int64 price3=4;
+  int32 price4=5;
+  uint32  price5=6;
+  uint64 price6=7;
+  bool done=8;
+  bytes bookBytes=9;
+}
+
+message DefaultResponse{
+  string msg=1;
+}

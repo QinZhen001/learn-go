@@ -1,0 +1,4 @@
+serverName: "面向加薪学习-从0到Go语言微服务架构师"
+redisConfig:
+  redisHost: "192.168.0.1"
+  redisPort: 6380

@@ -129,3 +129,18 @@ sudo /usr/local/mysql/support-files/mysql.server start
 
 
 
+## vscode 打造舒适go体验
+
+[使用 VScode 打造舒适的 Go 开发环境](https://laomiao.site/%E4%BD%BF%E7%94%A8-vscode-%E6%89%93%E9%80%A0%E8%88%92%E9%80%82%E7%9A%84-go-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83)
+
+
+
+
+
+##  Viper
+
+[https://pkg.go.dev/github.com/spf13/viper@v1.10.1#section-readme](https://pkg.go.dev/github.com/spf13/viper@v1.10.1#section-readme)
+
+Viper is a complete configuration solution for Go applications
+
+Viper是一个完整的Go应用程序配置解决方案
