@@ -1,5 +1,0 @@
-calf
-pig
-chicken
-duck
-cow

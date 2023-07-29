@@ -1,4 +1,0 @@
-serverName: "Go语言极简一本通"
-ginConfig:
-  Host: "127.0.0.1"
-  Port: 8081
