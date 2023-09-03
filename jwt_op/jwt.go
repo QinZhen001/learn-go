@@ -1,6 +1,10 @@
 package jwt_op
 
-import "golang.org/x/oauth2/jwt"
+import (
+	"learngo/internal"
+
+	"github.com/dgrijalva/jwt-go"
+)
 
 const (
 	TokenExpried     = "Token已过期"
@@ -11,4 +15,19 @@ const (
 
 type CustomClaims struct {
 	jwt.StandardClaims
+	Id          int32
+	NikeName    string
+	AuthorityId int32
 }
+
+type JWT struct {
+	SiginKey []byte
+}
+
+func NewJWT() *JWT {
+	return &JWT{
+		SiginKey: []byte(internal.AppConf.JWTConfig.SingingKey),
+	}
+}
+
+func GenerateJWT() {}
