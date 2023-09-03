@@ -2,6 +2,7 @@ package internal
 
 import (
 	"fmt"
+	"learngo/model"
 	"log"
 	"os"
 	"time"
@@ -51,6 +52,25 @@ func InitDB() {
 		panic("数据库连接失败" + err.Error())
 	}
 	err := DB.AutoMigrate(&model.Category{}, &model.Brand{}, &model.Advertise{}, &model.Product{}, &model.ProductCategoryBrand{})
+	if err != nil {
+		fmt.Println(err)
+	}
+	zap.S().Info("已连接mysql")
+
 }
 
-func MyPaging()
+func MyPaging(pageNo, pageSize int) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		if pageNo < 1 {
+			pageNo = 1
+		}
+		switch {
+		case pageSize > 100:
+			pageSize = 100
+		case pageSize <= 0:
+			pageSize = 5
+		}
+		offset := (pageNo - 1) * pageSize
+		return db.Offset(offset).Limit(pageSize)
+	}
+}
