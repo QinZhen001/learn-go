@@ -69,8 +69,7 @@ func FilterService() error {
 	if err != nil {
 		return err
 	}
-	// TODO: 1111
-	services, err := client.Agent().ServicesWithFilter("Service == \"account_web\"")
+	services, err := client.Agent().ServicesWithFilter("Service==account_web")
 	if err != nil {
 		return err
 	}

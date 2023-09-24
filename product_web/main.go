@@ -5,6 +5,7 @@ import (
 	"learngo/internal/register"
 	"learngo/util"
 
+	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 )
 
@@ -13,7 +14,6 @@ var (
 	randomId       string
 )
 
-// TODO: this
 func init() {
 	randomPort := util.GenRandomPort()
 	if !internal.AppConf.Debug {
@@ -32,4 +32,17 @@ func init() {
 	)
 }
 
-func main() {}
+func main() {
+	ip := internal.AppConf.ProductWebConfig.Host
+	port := util.GenRandomPort()
+	if internal.AppConf.Debug {
+		port = internal.AppConf.ProductWebConfig.Port
+	}
+	addr := ip + ":" + port
+	r := gin.Default()
+
+	productGroup := r.Group("/v1/product")
+	{
+		productGroup.GET("/list", internal.GetProductList)
+	}
+}

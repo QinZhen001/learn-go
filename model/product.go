@@ -1,8 +1,11 @@
 package model
 
 import (
+	"context"
 	"database/sql/driver"
 	"encoding/json"
+	"learngo/internal"
+	"strconv"
 	"time"
 
 	"gorm.io/gorm"
@@ -85,22 +88,25 @@ func (myList MyList) Scan(data interface{}) error {
 	return json.Unmarshal(data.([]byte), &myList)
 }
 
-// func (p *Product) AfterCreate(tx *gorm.Tx) error {
-// 	esProduct := ESProduct{
-// 		ID:         0,
-// 		BrandID:    0,
-// 		CategoryID: 0,
-// 		Selling:    false,
-// 		ShipFree:   false,
-// 		IsPop:      false,
-// 		IsNew:      false,
-// 		Name:       "",
-// 		FavNum:     0,
-// 		SoldNum:    0,
-// 		Price:      0,
-// 		RealPrice:  0,
-// 		ShortDesc:  "",
-// 	}
-
-// 	_, err := internal.ESClient.Index().Index(GetIndex()).BodyJson()
-// }
+func (p *Product) AfterCreate(tx *gorm.Tx) error {
+	esProduct := ESProduct{
+		ID:         0,
+		BrandID:    0,
+		CategoryID: 0,
+		Selling:    false,
+		ShipFree:   false,
+		IsPop:      false,
+		IsNew:      false,
+		Name:       "",
+		FavNum:     0,
+		SoldNum:    0,
+		Price:      0,
+		RealPrice:  0,
+		ShortDesc:  "",
+	}
+	_, err := internal.ESClient.Index().Index(GetIndex()).BodyJson(esProduct).Id(strconv.Itoa(int(p.ID))).Do(context.Background())
+	if err != nil {
+		panic(err)
+	}
+	return err
+}
