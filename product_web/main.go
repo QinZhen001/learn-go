@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"learngo/internal"
 	"learngo/internal/register"
 	"learngo/util"
@@ -38,11 +39,15 @@ func main() {
 	if internal.AppConf.Debug {
 		port = internal.AppConf.ProductWebConfig.Port
 	}
-	addr := ip + ":" + port
+	addr := fmt.Sprintf("%s:%d", ip, port)
 	r := gin.Default()
 
 	productGroup := r.Group("/v1/product")
 	{
-		productGroup.GET("/list", internal.GetProductList)
+		productGroup.GET("/list", handler.ProductListHandler)
+		productGroup.POST("/add", handler.AddHandler)
+		productGroup.POST("/update", handler.UpdateHandler)
+		productGroup.POST("/delete", handler.DelHandler)
+		productGroup.GET("/detail/:id", handler.DetailHandler)
 	}
 }

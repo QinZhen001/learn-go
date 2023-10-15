@@ -1,8 +1,10 @@
 package jwt_op
 
 import (
+	"errors"
 	"learngo/internal"
 	"learngo/log"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -44,5 +46,48 @@ func (j *JWT) GenerateJWT(claims CustomClaims) (string, error) {
 
 // 解析token
 func (j *JWT) ParseToken(tokenStr string) (*CustomClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenStr, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return j.SiginKey, nil
+	})
+	// 解析错误
+	if err != nil {
+		if result, ok := err.(jwt.ValidationError); ok {
+			if result.Errors&jwt.ValidationErrorMalformed != 0 {
+				return nil, errors.New(TokenMalformed)
+			} else if result.Errors&jwt.ValidationErrorExpired != 0 {
+				return nil, errors.New(TokenExpried)
+			} else if result.Errors&jwt.ValidationErrorNotValidYet != 0 {
+				return nil, errors.New(TokenNotValidYet)
+			}
+		}
+	}
 
+	if token != nil {
+		if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
+			return claims, nil
+		}
+		return nil, errors.New(TokenInvalid)
+	}
+
+	return nil, errors.New(TokenInvalid)
+}
+
+// 刷新token
+func (j *JWT) RefreshToken(tokenStr string) (string, error) {
+	jwt.TimeFunc = func() time.Time {
+		return time.Unix(0, 0)
+	}
+	token, err := jwt.ParseWithClaims(tokenStr, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return j.SiginKey, nil
+	})
+	if err != nil {
+		return "", err
+	}
+	if claims, ok := token.Claims.(*CustomClaims); ok && token.Valid {
+		jwt.TimeFunc = time.Now
+		claims.StandardClaims.ExpiresAt = time.Now().Add(2 * time.Hour).Unix()
+		return j.GenerateJWT(*claims)
+	}
+
+	return "", errors.New(TokenInvalid)
 }
