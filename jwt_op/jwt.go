@@ -2,6 +2,7 @@ package jwt_op
 
 import (
 	"learngo/internal"
+	"learngo/log"
 
 	"github.com/dgrijalva/jwt-go"
 )
@@ -30,4 +31,18 @@ func NewJWT() *JWT {
 	}
 }
 
-func GenerateJWT() {}
+// 生成token
+func (j *JWT) GenerateJWT(claims CustomClaims) (string, error) {
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenStr, err := token.SignedString(j.SiginKey)
+	if err != nil {
+		log.Logger.Error("生成JWT错误:" + err.Error())
+		return "", err
+	}
+	return tokenStr, nil
+}
+
+// 解析token
+func (j *JWT) ParseToken(tokenStr string) (*CustomClaims, error) {
+
+}
