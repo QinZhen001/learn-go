@@ -72,6 +72,7 @@ require (
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/gin-gonic/gin v1.9.1
+	github.com/go-basic/uuid v1.0.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/hashicorp/consul/api v1.24.0
 	github.com/nacos-group/nacos-sdk-go v1.1.4
