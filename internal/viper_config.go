@@ -14,7 +14,8 @@ import (
 var AppConf AppConfig
 var NacosConf NacosConfig
 
-var fileName = "dev-config.yaml"
+// var fileName = "dev-config.yaml"
+var fileName = "../dev-config.yaml"
 
 func initNacos() {
 	v := viper.New()
@@ -22,6 +23,7 @@ func initNacos() {
 	v.ReadInConfig()
 	err := v.Unmarshal(&NacosConf)
 	fmt.Println(NacosConf)
+
 	if err != nil {
 		fmt.Println(err)
 		panic(err)
@@ -29,12 +31,14 @@ func initNacos() {
 }
 
 func initFromNacos() {
+
 	serverConfigs := []constant.ServerConfig{
 		{
 			IpAddr: NacosConf.Host,
 			Port:   uint64(NacosConf.Port),
 		},
 	}
+
 	clientConfig := constant.ClientConfig{
 		NamespaceId:         NacosConf.Namespace,
 		TimeoutMs:           5000,
@@ -47,6 +51,7 @@ func initFromNacos() {
 		"serverConfigs": serverConfigs,
 		"clientConfig":  clientConfig,
 	})
+
 	if err != nil {
 		panic(err)
 	}
